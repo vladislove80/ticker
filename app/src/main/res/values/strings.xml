@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Ticker</string>
+    <!--EditTextActivity-->
     <string name="customize_it">Customize it!</string>
+    <string name="history">History:</string>
+    <!--CustomizerActivity-->
     <string name="label_speed">Speed</string>
     <string name="label_speed1">Speed:</string>
     <string name="text_size">Text size:</string>

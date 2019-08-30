@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import com.uvn.ticker.editexteactivity.TAG_TICKER_MESSAGE
 import com.uvn.ticker.tickerview.TickerScreenParams
 import com.uvn.ticker.tickerview.TickerViewActivity
 import kotlinx.android.synthetic.main.activity_customize.*
@@ -57,7 +58,7 @@ class CustomizerActivity : AppCompatActivity() {
         }
     }
 
-    fun setTickerViewValue(seekerPosition: Int, set: (Int) -> Unit) {
+    private fun setTickerViewValue(seekerPosition: Int, set: (Int) -> Unit) {
         seekerPositionRanges.forEachIndexed { index, seekerRanges ->
             if (seekerPosition in seekerRanges) set.invoke(index)
         }
