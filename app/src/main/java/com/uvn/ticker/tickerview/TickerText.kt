@@ -5,7 +5,7 @@ class TickerText(
     private val textWidth: Float,
     private val screenWidth: Float,
     private val fromRightToLeft: Boolean = true,
-    private val step: Float,
+    var step: Float,
     private var textState: TickerTextState = TickerTextState.RIGHT_OF_SCREEN
 ) {
     var position = 0f

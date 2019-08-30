@@ -5,32 +5,47 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import com.uvn.ticker.tickerview.TickerTextState.LEFT_OF_SCREEN
 
 class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs) {
 
+    lateinit var params: TickerScreenParams
+
     private val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
     private var messages = mutableListOf<TickerText>()
-    private lateinit var params: TickerScreenParams
     private var halfScreenHeight = 0f
     private var screenWidth = 0f
+    private var screenHeight = 0f
     private var textWidth = 0f
 
-    fun setParams(params: TickerScreenParams) {
+    fun initParams(params: TickerScreenParams?) = params?.let {
         this.params = params
         with(paint) {
             color = params.textColor
-            textSize = params.textSize
             textWidth = measureText(params.text)
         }
+    }
+
+    fun setSpeed(step: Float) {
+        messages.clear()
+        params.textSpeed = step
+    }
+
+    fun setTextRatio(ratio: Float) {
+        messages.clear()
+        calculateWithRatio(ratio)
+        params.textRatio = ratio
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w.toFloat()
+        screenHeight = h.toFloat()
+
+        calculateWithRatio(params.textRatio)
+
         halfScreenHeight = h.toFloat() / 2
         messages.add(
             TickerText(
@@ -41,6 +56,12 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         )
     }
 
+    private fun calculateWithRatio(ratio: Float) {
+        val textSizeWithHeightRatio = (screenHeight) * ratio
+        paint.textSize = textSizeWithHeightRatio
+        textWidth = paint.measureText(params.text)
+    }
+
     private fun drawText(canvas: Canvas, step: Int, paint: TextPaint, textHeight: Float) =
         canvas.drawText(params.text, screenWidth - step, halfScreenHeight + textHeight / 4, paint)
 
@@ -49,7 +70,6 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        Log.d("TickerView", "onDraw ${messages.size}")
 
         val fm = paint.fontMetrics
         val textHeight = fm.descent - fm.ascent

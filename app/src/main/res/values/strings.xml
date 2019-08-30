@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Ticker</string>
     <string name="customize_it">Customize it!</string>
+    <string name="label_speed">Speed</string>
+    <string name="label_speed1">Speed:</string>
+    <string name="text_size">Text size:</string>
+    <string name="got_it">GOT IT!</string>
 </resources>

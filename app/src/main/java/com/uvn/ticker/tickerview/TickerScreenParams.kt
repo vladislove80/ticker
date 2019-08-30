@@ -8,9 +8,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class TickerScreenParams(
     val text: String,
-    val textSize: Float = 18f,
+    var textRatio: Float = 1f / 20,
     val fontRes: String = "sans-serif-medium",
-    val textSpeed: Float = 40f,
+    var textSpeed: Float = 1f,
     @ColorInt val backgroundColor: Int = Color.WHITE,
     @ColorInt val textColor: Int = Color.BLACK,
     val fromRightToLeft: Boolean = true

@@ -13,7 +13,7 @@ class TickerViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tricker_view)
 
         intent.extras?.getParcelable<TickerScreenParams>(TAG_TICKER_PARAMS)?.let { params ->
-            tickerView.setParams(params)
+            tickerView.initParams(params)
         }
     }
 }
