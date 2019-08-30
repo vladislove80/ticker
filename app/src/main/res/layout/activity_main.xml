@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".editexteactivity.EditTextActivity">
 
     <EditText
         android:id="@+id/etMessage"
@@ -17,14 +17,35 @@
     <Button
         android:id="@+id/btnNext"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="40dp"
         android:layout_marginTop="24dp"
         android:background="@color/colorPrimary"
-        android:text="@string/customize_it"
         android:elevation="8dp"
+        android:text="@string/customize_it"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etMessage" />
+
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/darker_gray"
+        android:text="@string/history"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNext" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rwHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHistory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
