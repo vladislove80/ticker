@@ -1,6 +1,5 @@
 package com.uvn.ticker.tickerview
 
-
 class TickerText(
     private val textWidth: Float,
     private val screenWidth: Float,
