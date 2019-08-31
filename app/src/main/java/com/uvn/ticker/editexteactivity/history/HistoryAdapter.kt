@@ -43,6 +43,11 @@ class HistoryHistoryAdapter(
         val position = p0?.tag as Int
         listener.onClick(messages[position])
     }
+
+    fun clearAll() {
+        messages.clear()
+        notifyDataSetChanged()
+    }
 }
 
 class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {

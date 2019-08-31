@@ -3,6 +3,9 @@ package com.uvn.ticker.editexteactivity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -49,9 +52,6 @@ class EditTextActivity : AppCompatActivity(),
     private fun setHistoryList() {
         with(rwHistory) {
             val messages = PreferenceHelper.loadMessages(this@EditTextActivity)
-            if (messages.isNotEmpty()) {
-                tvHistory.visibility = VISIBLE
-            }
             adapter = HistoryHistoryAdapter(this@EditTextActivity, messages) {
                 deleteMessageAndSave(messages)
             }
@@ -63,7 +63,12 @@ class EditTextActivity : AppCompatActivity(),
         }
     }
 
+    private fun checkHistoryLabel(messages: MutableList<String>) {
+        tvHistory.visibility = if (messages.isEmpty()) GONE else VISIBLE
+    }
+
     private fun deleteMessageAndSave(messages: MutableList<String>) {
+        checkHistoryLabel(messages)
         PreferenceHelper.saveMessages(this@EditTextActivity, messages)
     }
 
@@ -76,5 +81,25 @@ class EditTextActivity : AppCompatActivity(),
     override fun onClick(message: String) {
         if (message.isNotEmpty()) etMessage.setText(message, TextView.BufferType.EDITABLE)
         startCustomizerActivity(message)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edittextactivity, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.clearAll) {
+            val adapter = rwHistory.adapter as HistoryHistoryAdapter
+            adapter.clearAll()
+            checkHistoryLabel(adapter.messages)
+            PreferenceHelper.saveMessages(this@EditTextActivity, adapter.messages)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkHistoryLabel((rwHistory.adapter as HistoryHistoryAdapter).messages)
     }
 }
