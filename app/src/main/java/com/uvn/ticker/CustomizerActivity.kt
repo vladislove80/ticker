@@ -19,8 +19,8 @@ class CustomizerActivity : AppCompatActivity() {
     )
 
     private val speedRanges = listOf(
-        1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f,
-        17f, 18f, 19f, 20f
+        1.5f, 3f, 4.5f, 6f, 7.5f, 9f, 10.5f, 12f, 13.5f, 15f, 16.5f, 18f, 19.5f, 21f, 22.5f, 24f,
+        25.5f, 27f, 28.5f, 30f
     )
     private val ratioRanges = listOf(
         1f / 20, 2f / 20, 3f / 20, 4f / 20, 5f / 20, 6f / 20, 7f / 20, 8f / 20, 9f / 20, 10f / 20,

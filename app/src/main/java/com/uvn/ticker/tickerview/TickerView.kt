@@ -47,13 +47,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         calculateWithRatio(params.textRatio)
 
         halfScreenHeight = h.toFloat() / 2
-        messages.add(
-            TickerText(
-                textWidth,
-                screenWidth,
-                step = params.textSpeed
-            )
-        )
+        messages.add(createTickerMessage())
     }
 
     private fun calculateWithRatio(ratio: Float) {
