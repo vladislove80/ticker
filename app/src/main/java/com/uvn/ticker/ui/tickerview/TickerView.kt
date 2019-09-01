@@ -75,6 +75,9 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         val fm = paint.fontMetrics
         val textHeight = fm.descent - fm.ascent
 
+        paint.color = params.textColor
+        canvas.drawColor(params.backgroundColor)
+
         messages.forEach { text ->
             drawText(canvas, text.position.toInt(), paint, textHeight)
             text.move()

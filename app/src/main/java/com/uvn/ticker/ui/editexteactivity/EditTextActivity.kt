@@ -16,9 +16,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.uvn.ticker.ui.CustomizerActivity
 import com.uvn.ticker.PreferenceHelper
 import com.uvn.ticker.R
+import com.uvn.ticker.ui.CustomizerActivity
 import com.uvn.ticker.ui.editexteactivity.history.HistoryClickListener
 import com.uvn.ticker.ui.editexteactivity.history.HistoryHistoryAdapter
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchCallback
@@ -58,16 +58,12 @@ class EditTextActivity : AppCompatActivity(),
     private fun setHistoryList() {
         with(rwHistory) {
             val messages = PreferenceHelper.loadMessages(this@EditTextActivity)
-            adapter = HistoryHistoryAdapter(
-                this@EditTextActivity,
-                messages
-            ) {
+            adapter = HistoryHistoryAdapter(this@EditTextActivity, messages) {
                 deleteMessageAndSave(messages)
             }
             layoutManager = LinearLayoutManager(this@EditTextActivity)
             setHasFixedSize(true)
-            val tCallback =
-                HistoryTouchCallback(adapter as HistoryTouchHelper)
+            val tCallback = HistoryTouchCallback(adapter as HistoryTouchHelper)
             val touchHelper = ItemTouchHelper(tCallback)
             touchHelper.attachToRecyclerView(this)
         }

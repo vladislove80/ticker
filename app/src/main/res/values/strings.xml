@@ -7,6 +7,10 @@
     <string name="label_speed">Speed</string>
     <string name="label_speed1">Speed:</string>
     <string name="text_size">Text size:</string>
+    <string name="text_color">Text color:</string>
+    <string name="background_color">Background:</string>
     <string name="got_it">GOT IT!</string>
     <string name="clear_history">Clear History</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>
