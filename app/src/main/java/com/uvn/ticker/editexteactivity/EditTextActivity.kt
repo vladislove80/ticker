@@ -3,10 +3,15 @@ package com.uvn.ticker.editexteactivity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -33,6 +38,7 @@ class EditTextActivity : AppCompatActivity(),
         if (Build.VERSION.SDK_INT >= 21) etMessage.showSoftInputOnFocus = true
         setButtonListener()
         setHistoryList()
+        etMessage.setupClearButtonWithAction()
     }
 
     private fun setButtonListener() {
@@ -101,5 +107,30 @@ class EditTextActivity : AppCompatActivity(),
     override fun onResume() {
         super.onResume()
         checkHistoryLabel((rwHistory.adapter as HistoryHistoryAdapter).messages)
+    }
+
+    private fun EditText.setupClearButtonWithAction() {
+
+        addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                val clearIcon = if (editable?.isNotEmpty() == true) R.drawable.ic_clear_black else 0
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+        })
+
+        setOnTouchListener(View.OnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (this.right - this.compoundPaddingRight)) {
+                    this.setText("")
+                    return@OnTouchListener true
+                }
+            }
+            return@OnTouchListener false
+        })
     }
 }
