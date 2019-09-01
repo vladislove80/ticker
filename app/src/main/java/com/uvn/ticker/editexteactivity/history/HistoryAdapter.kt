@@ -16,7 +16,7 @@ class HistoryHistoryAdapter(
 
     override fun onItemDismiss(position: Int) {
         messages.removeAt(position)
-        notifyItemRemoved(position)
+        notifyDataSetChanged()
         deletedOnSwipe.invoke()
     }
 
