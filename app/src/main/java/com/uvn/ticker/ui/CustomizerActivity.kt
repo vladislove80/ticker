@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.uvn.ticker.R
+
 import com.uvn.ticker.ui.editexteactivity.TAG_TICKER_MESSAGE
-import com.uvn.ticker.ui.tickerview.model.TickerParams
 import com.uvn.ticker.ui.tickerview.TickerViewActivity
+import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_customize.*
 
 const val TAG_TICKER_PARAMS = "ticker_params"
