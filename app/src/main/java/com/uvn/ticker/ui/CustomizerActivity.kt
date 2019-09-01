@@ -1,12 +1,13 @@
-package com.uvn.ticker
+package com.uvn.ticker.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.uvn.ticker.editexteactivity.TAG_TICKER_MESSAGE
-import com.uvn.ticker.tickerview.TickerScreenParams
-import com.uvn.ticker.tickerview.TickerViewActivity
+import com.uvn.ticker.R
+import com.uvn.ticker.ui.editexteactivity.TAG_TICKER_MESSAGE
+import com.uvn.ticker.ui.tickerview.model.TickerParams
+import com.uvn.ticker.ui.tickerview.TickerViewActivity
 import kotlinx.android.synthetic.main.activity_customize.*
 
 const val TAG_TICKER_PARAMS = "ticker_params"
@@ -32,7 +33,7 @@ class CustomizerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customize)
 
         intent.extras?.getString(TAG_TICKER_MESSAGE)?.let { message ->
-            tvPreview.initParams(TickerScreenParams(message))
+            tvPreview.initParams(TickerParams(message))
         }
 
         setListeners()

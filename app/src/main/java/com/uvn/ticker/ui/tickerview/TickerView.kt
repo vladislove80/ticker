@@ -1,4 +1,4 @@
-package com.uvn.ticker.tickerview
+package com.uvn.ticker.ui.tickerview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,12 +6,15 @@ import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import com.uvn.ticker.tickerview.TickerTextState.LEFT_OF_SCREEN
+import com.uvn.ticker.ui.tickerview.model.TickerParams
+import com.uvn.ticker.ui.tickerview.model.TickerText
+import com.uvn.ticker.ui.tickerview.model.TickerTextState
+import com.uvn.ticker.ui.tickerview.model.TickerTextState.LEFT_OF_SCREEN
 
 class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs) {
 
-    lateinit var params: TickerScreenParams
+    lateinit var params: TickerParams
 
     private val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
     private var messages = mutableListOf<TickerText>()
@@ -20,7 +23,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var screenHeight = 0f
     private var textWidth = 0f
 
-    fun initParams(params: TickerScreenParams?) = params?.let {
+    fun initParams(params: TickerParams?) = params?.let {
         this.params = params
         with(paint) {
             color = params.textColor
@@ -60,7 +63,11 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         canvas.drawText(params.text, screenWidth - step, halfScreenHeight + textHeight / 4, paint)
 
     private fun createTickerMessage() =
-        TickerText(textWidth, screenWidth, step = params.textSpeed)
+        TickerText(
+            textWidth,
+            screenWidth,
+            step = params.textSpeed
+        )
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

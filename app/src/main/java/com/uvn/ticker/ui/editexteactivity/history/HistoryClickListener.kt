@@ -1,4 +1,4 @@
-package com.uvn.ticker.editexteactivity.history
+package com.uvn.ticker.ui.editexteactivity.history
 
 interface HistoryClickListener {
     fun onClick(message: String)

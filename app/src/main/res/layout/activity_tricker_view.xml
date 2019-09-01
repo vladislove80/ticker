@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context=".tickerview.TickerViewActivity">
+    tools:context=".ui.tickerview.TickerViewActivity">
 
 
-    <com.uvn.ticker.tickerview.TickerView
+    <com.uvn.ticker.ui.tickerview.TickerView
         android:id="@+id/tickerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

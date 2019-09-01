@@ -1,9 +1,10 @@
-package com.uvn.ticker.tickerview
+package com.uvn.ticker.ui.tickerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.uvn.ticker.R
-import com.uvn.ticker.TAG_TICKER_PARAMS
+import com.uvn.ticker.ui.TAG_TICKER_PARAMS
+import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_tricker_view.*
 
 class TickerViewActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class TickerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tricker_view)
 
-        intent.extras?.getParcelable<TickerScreenParams>(TAG_TICKER_PARAMS)?.let { params ->
+        intent.extras?.getParcelable<TickerParams>(TAG_TICKER_PARAMS)?.let { params ->
             tickerView.initParams(params)
         }
     }

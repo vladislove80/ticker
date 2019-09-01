@@ -1,4 +1,4 @@
-package com.uvn.ticker.editexteactivity.history
+package com.uvn.ticker.ui.editexteactivity.history
 
 import android.view.LayoutInflater
 import android.view.View
