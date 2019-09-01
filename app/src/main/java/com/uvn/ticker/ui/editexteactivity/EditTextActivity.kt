@@ -23,6 +23,7 @@ import com.uvn.ticker.ui.editexteactivity.history.HistoryClickListener
 import com.uvn.ticker.ui.editexteactivity.history.HistoryHistoryAdapter
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchCallback
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchHelper
+import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -36,6 +37,14 @@ class EditTextActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT >= 21) etMessage.showSoftInputOnFocus = true
+
+        tvLabelTicker.initParams(
+            TickerParams(
+                "Edit text customize it and go ticker.",
+                textSpeed = 6f,
+                textRatio = 4f / 20
+            )
+        )
         setButtonListener()
         setHistoryList()
         etMessage.setupClearButtonWithAction()

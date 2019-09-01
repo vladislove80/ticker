@@ -37,8 +37,10 @@ class CustomizerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customize)
 
         intent.extras?.getString(TAG_TICKER_MESSAGE)?.let { message ->
-            params.text = message
-            tvPreview.initParams(params)
+
+            tvPreview.initParams(params.apply {
+                this.text = message
+            })
         }
 
         setListeners()
@@ -60,7 +62,7 @@ class CustomizerActivity : AppCompatActivity() {
 
         btnGotIt.setOnClickListener {
             startActivity(Intent(this, TickerViewActivity::class.java).apply {
-                putExtra(TAG_TICKER_PARAMS, tvPreview.params)
+                putExtra(TAG_TICKER_PARAMS, params)
             })
         }
 
@@ -87,9 +89,9 @@ class CustomizerActivity : AppCompatActivity() {
             setColor.invoke(colorEnvelope.color)
         }
 
-        builder.setNegativeButton(
-            getString(R.string.cancel)
-        ) { dialogInterface, _ -> dialogInterface.dismiss() }
+        builder.setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
         builder.colorPickerView.colorEnvelope
         builder.show()
     }
