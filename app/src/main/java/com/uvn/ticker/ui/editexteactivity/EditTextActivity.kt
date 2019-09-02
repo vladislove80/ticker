@@ -28,12 +28,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 const val TAG_TICKER_MESSAGE = "message"
 
-class EditTextActivity : AppCompatActivity(),
+class EditTextActivity : AppCompatActivity(R.layout.activity_main),
     HistoryClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT >= 21) etMessage.showSoftInputOnFocus = true
         setButtonListener()

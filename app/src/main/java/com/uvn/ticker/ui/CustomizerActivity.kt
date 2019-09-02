@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_customize.*
 
 const val TAG_TICKER_PARAMS = "ticker_params"
 
-class CustomizerActivity : AppCompatActivity() {
+class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
 
     private val seekerPositionRanges = listOf(
         0..5, 6..10, 11..15, 16..20, 21..25, 26..30, 31..35, 36..40, 41..45, 46..50, 51..55, 56..60,
@@ -31,7 +31,6 @@ class CustomizerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customize)
 
         intent.extras?.getString(TAG_TICKER_MESSAGE)?.let { message ->
             tvPreview.initParams(TickerParams(message))
