@@ -1,4 +1,4 @@
-package com.uvn.ticker.tickerview
+package com.uvn.ticker.data
 
 enum class TickerTextState {
     RIGHT_OF_SCREEN,

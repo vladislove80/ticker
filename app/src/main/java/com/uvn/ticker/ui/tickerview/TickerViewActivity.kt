@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.uvn.ticker.R
 import com.uvn.ticker.ui.TAG_TICKER_PARAMS
-import com.uvn.ticker.ui.tickerview.model.TickerParams
+import com.uvn.ticker.data.TickerParams
 import kotlinx.android.synthetic.main.activity_tricker_view.*
 
 class TickerViewActivity : AppCompatActivity(R.layout.activity_tricker_view) {

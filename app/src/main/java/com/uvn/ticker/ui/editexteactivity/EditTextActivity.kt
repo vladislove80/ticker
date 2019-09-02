@@ -25,7 +25,6 @@ import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchCallback
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 const val TAG_TICKER_MESSAGE = "message"
 
 class EditTextActivity : AppCompatActivity(R.layout.activity_main),

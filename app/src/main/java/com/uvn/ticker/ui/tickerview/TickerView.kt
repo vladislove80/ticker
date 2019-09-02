@@ -6,10 +6,9 @@ import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import com.uvn.ticker.ui.tickerview.model.TickerParams
-import com.uvn.ticker.ui.tickerview.model.TickerText
-import com.uvn.ticker.ui.tickerview.model.TickerTextState
-import com.uvn.ticker.ui.tickerview.model.TickerTextState.LEFT_OF_SCREEN
+import com.uvn.ticker.data.TickerParams
+import com.uvn.ticker.data.TickerText
+import com.uvn.ticker.data.TickerTextState
 
 class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs) {
@@ -84,7 +83,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             messages.add(createTickerMessage())
         }
 
-        if (messages.first().getTextState() == LEFT_OF_SCREEN) {
+        if (messages.first().getTextState() == TickerTextState.LEFT_OF_SCREEN) {
             messages.removeAt(0)
         }
 
