@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".ui.editexteactivity.EditTextActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".ui.CustomizerActivity"
             android:screenOrientation="portrait" />
@@ -19,9 +24,9 @@
             android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".ui.editexteactivity.EditTextActivity"
+            android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,4 +34,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
