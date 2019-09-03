@@ -6,15 +6,14 @@ import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import com.uvn.ticker.ui.tickerview.model.TickerParams
-import com.uvn.ticker.ui.tickerview.model.TickerText
-import com.uvn.ticker.ui.tickerview.model.TickerTextState
-import com.uvn.ticker.ui.tickerview.model.TickerTextState.LEFT_OF_SCREEN
+import com.uvn.ticker.data.TickerParam
+import com.uvn.ticker.data.TickerText
+import com.uvn.ticker.data.TickerTextState
 
 class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs) {
 
-    lateinit var params: TickerParams
+    lateinit var params: TickerParam
 
     private val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
     private var messages = mutableListOf<TickerText>()
@@ -23,7 +22,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var screenHeight = 0f
     private var textWidth = 0f
 
-    fun initParams(params: TickerParams?) = params?.let {
+    fun initParams(params: TickerParam) = params?.let {
         this.params = params
         with(paint) {
             color = params.textColor
@@ -87,7 +86,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             messages.add(createTickerMessage())
         }
 
-        if (messages.first().getTextState() == LEFT_OF_SCREEN) {
+        if (messages.first().getTextState() == TickerTextState.LEFT_OF_SCREEN) {
             messages.removeAt(0)
         }
 

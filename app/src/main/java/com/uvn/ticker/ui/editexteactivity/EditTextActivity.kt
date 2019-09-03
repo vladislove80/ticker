@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -16,35 +17,24 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.uvn.ticker.PreferenceHelper
 import com.uvn.ticker.R
+import com.uvn.ticker.data.Repository
+import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.ui.CustomizerActivity
+import com.uvn.ticker.ui.TAG_TICKER_PARAMS
 import com.uvn.ticker.ui.editexteactivity.history.HistoryClickListener
 import com.uvn.ticker.ui.editexteactivity.history.HistoryHistoryAdapter
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchCallback
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchHelper
-import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-const val TAG_TICKER_MESSAGE = "message"
-
-class EditTextActivity : AppCompatActivity(),
+class EditTextActivity : AppCompatActivity(R.layout.activity_main),
     HistoryClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT >= 21) etMessage.showSoftInputOnFocus = true
-
-        tvLabelTicker.initParams(
-            TickerParams(
-                "Edit text customize it and go ticker.",
-                textSpeed = 6f,
-                textRatio = 4f / 20
-            )
-        )
         setButtonListener()
         setHistoryList()
         etMessage.setupClearButtonWithAction()
@@ -54,48 +44,53 @@ class EditTextActivity : AppCompatActivity(),
         btnNext.setOnClickListener {
             val message = etMessage.text.toString()
             if (message.isNotEmpty()) {
-                val messages = (rwHistory.adapter as HistoryHistoryAdapter).messages
-                if (!messages.contains(message)) {
-                    messages.add(message)
-                    PreferenceHelper.saveMessages(this, messages)
+                val tp = (rwHistory.adapter as HistoryHistoryAdapter).tp
+                val isNew = !tp.any {
+                    it.text == message
                 }
-                startCustomizerActivity(message)
+                if (isNew) {
+                    val tickerParam = TickerParam(message)
+                    tp.add(tickerParam)
+                    Repository.saveTickerParam(tickerParam)
+                    startCustomizerActivity(tickerParam)
+                }
             }
         }
     }
 
     private fun setHistoryList() {
         with(rwHistory) {
-            val messages = PreferenceHelper.loadMessages(this@EditTextActivity)
-            adapter = HistoryHistoryAdapter(this@EditTextActivity, messages) {
-                deleteMessageAndSave(messages)
+            adapter = HistoryHistoryAdapter(this@EditTextActivity, Repository.getTickerParams()) {
+                deleteAndSave(it)
             }
             layoutManager = LinearLayoutManager(this@EditTextActivity)
             setHasFixedSize(true)
-            val tCallback = HistoryTouchCallback(adapter as HistoryTouchHelper)
-            val touchHelper = ItemTouchHelper(tCallback)
-            touchHelper.attachToRecyclerView(this)
+            ItemTouchHelper(HistoryTouchCallback(adapter as HistoryTouchHelper))
+                .apply {
+                    attachToRecyclerView(this@with)
+                }
         }
     }
 
-    private fun checkHistoryLabel(messages: MutableList<String>) {
+    private fun checkHistoryLabel(messages: MutableList<TickerParam>) {
         tvHistory.visibility = if (messages.isEmpty()) GONE else VISIBLE
     }
 
-    private fun deleteMessageAndSave(messages: MutableList<String>) {
-        checkHistoryLabel(messages)
-        PreferenceHelper.saveMessages(this@EditTextActivity, messages)
+    private fun deleteAndSave(tp: TickerParam) {
+        checkHistoryLabel((rwHistory.adapter as HistoryHistoryAdapter).tp)
+        Repository.deleteTickerParam(tp)
     }
 
-    private fun startCustomizerActivity(message: String) {
+    private fun startCustomizerActivity(tp: TickerParam) {
         startActivity(Intent(this, CustomizerActivity::class.java).apply {
-            putExtra(TAG_TICKER_MESSAGE, "$message ")
+            putExtra(TAG_TICKER_PARAMS, tp)
         })
     }
 
-    override fun onClick(message: String) {
-        if (message.isNotEmpty()) etMessage.setText(message, TextView.BufferType.EDITABLE)
-        startCustomizerActivity(message)
+    override fun onClick(tp: TickerParam) {
+        etMessage.setText(tp.text, TextView.BufferType.EDITABLE)
+        startCustomizerActivity(tp)
+        (rwHistory.adapter as HistoryHistoryAdapter).tp.logger("EditTextActivity")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -107,15 +102,15 @@ class EditTextActivity : AppCompatActivity(),
         if (item.itemId == R.id.clearAll) {
             val adapter = rwHistory.adapter as HistoryHistoryAdapter
             adapter.clearAll()
-            checkHistoryLabel(adapter.messages)
-            PreferenceHelper.saveMessages(this@EditTextActivity, adapter.messages)
+            checkHistoryLabel(adapter.tp)
+            Repository.clearHistory()
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
         super.onResume()
-        checkHistoryLabel((rwHistory.adapter as HistoryHistoryAdapter).messages)
+        checkHistoryLabel(Repository.getTickerParams())
     }
 
     private fun EditText.setupClearButtonWithAction() {
@@ -141,5 +136,12 @@ class EditTextActivity : AppCompatActivity(),
             }
             return@OnTouchListener false
         })
+    }
+
+    private fun List<TickerParam>.logger(tag: String) {
+        Log.d(tag, "List size: ${this.size}, \n ")
+        this.forEach {
+            Log.d(tag, "Items text: ${it.text}, ")
+        }
     }
 }

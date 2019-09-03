@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.uvn.ticker.R
+import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.ui.editexteactivity.EditTextActivity
-import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         tvLabelTicker.initParams(
-            TickerParams(
+            TickerParam(
                 "Ticker           ",
                 textSpeed = 15f,
                 textRatio = 4f / 20

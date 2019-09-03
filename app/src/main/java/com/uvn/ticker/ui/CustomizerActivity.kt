@@ -7,16 +7,14 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.skydoves.colorpickerpreference.ColorPickerDialog
 import com.uvn.ticker.R
-import com.uvn.ticker.ui.editexteactivity.TAG_TICKER_MESSAGE
+import com.uvn.ticker.data.Repository
+import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.ui.tickerview.TickerViewActivity
-import com.uvn.ticker.ui.tickerview.model.TickerParams
 import kotlinx.android.synthetic.main.activity_customize.*
 
 const val TAG_TICKER_PARAMS = "ticker_params"
 
-class CustomizerActivity : AppCompatActivity() {
-
-    private val params = TickerParams()
+class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
 
     private val seekerPositionRanges = listOf(
         0..5, 6..10, 11..15, 16..20, 21..25, 26..30, 31..35, 36..40, 41..45, 46..50, 51..55, 56..60,
@@ -34,13 +32,13 @@ class CustomizerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customize)
 
-        intent.extras?.getString(TAG_TICKER_MESSAGE)?.let { message ->
-
-            tvPreview.initParams(params.apply {
-                this.text = message
-            })
+        intent.extras?.getParcelable<TickerParam>(TAG_TICKER_PARAMS)?.let { tp ->
+            with(tp) {
+                tvPreview.initParams(this)
+                sbSpeed.progress = getSeekerProgressFromParam(textSpeed, speedRanges)
+                sbTextSize.progress = getSeekerProgressFromParam(textRatio, ratioRanges)
+            }
         }
 
         setListeners()
@@ -61,21 +59,23 @@ class CustomizerActivity : AppCompatActivity() {
         })
 
         btnGotIt.setOnClickListener {
+            val tp = tvPreview.params
+            Repository.saveTickerParam(tp)
             startActivity(Intent(this, TickerViewActivity::class.java).apply {
-                putExtra(TAG_TICKER_PARAMS, params)
+                putExtra(TAG_TICKER_PARAMS, tp)
             })
         }
 
         tvTextColorPicker.setOnClickListener {
             getColorFromPicker {
                 tvTextColorPicker.setBackgroundColor(it)
-                params.textColor = it
+                tvPreview.params.textColor = it
             }
         }
         tvBackgroundColorPicker.setOnClickListener {
             getColorFromPicker {
                 tvBackgroundColorPicker.setBackgroundColor(it)
-                params.backgroundColor = it
+                tvPreview.params.backgroundColor = it
             }
         }
     }
@@ -115,5 +115,16 @@ class CustomizerActivity : AppCompatActivity() {
                 find.invoke(p1)
             }
         }
+    }
+
+    private fun getSeekerProgressFromParam(value: Float, list: List<Float>): Int {
+        var pos = 0
+        list.forEachIndexed { index, paramValue ->
+            if (value == paramValue) {
+                val intRange = seekerPositionRanges[index]
+                pos = (intRange.first + intRange.last) / 2
+            }
+        }
+        return pos
     }
 }

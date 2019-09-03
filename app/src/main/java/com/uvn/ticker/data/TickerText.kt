@@ -1,4 +1,4 @@
-package com.uvn.ticker.ui.tickerview.model
+package com.uvn.ticker.data
 
 class TickerText(
     private val textWidth: Float,
