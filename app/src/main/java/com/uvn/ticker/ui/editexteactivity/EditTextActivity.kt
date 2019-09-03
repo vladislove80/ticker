@@ -35,6 +35,13 @@ class EditTextActivity : AppCompatActivity(R.layout.activity_main),
         super.onCreate(savedInstanceState)
 
         if (Build.VERSION.SDK_INT >= 21) etMessage.showSoftInputOnFocus = true
+        tvLabelTicker.initParams(
+            TickerParam(
+                "Edit text, customize it and go Ticker! *",
+                textSpeed = 6f,
+                textRatio = 7f / 20
+            )
+        )
         setButtonListener()
         setHistoryList()
         etMessage.setupClearButtonWithAction()

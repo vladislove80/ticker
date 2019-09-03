@@ -8,11 +8,10 @@ import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.ui.editexteactivity.EditTextActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
         tvLabelTicker.initParams(
             TickerParam(
                 "Ticker           ",
@@ -22,8 +21,8 @@ class SplashActivity : AppCompatActivity() {
         )
 
         tvLabelTicker.postDelayed({
+            startActivity(Intent(this@SplashActivity, EditTextActivity::class.java))
             finish()
-            startActivity(Intent(this, EditTextActivity::class.java))
         }, 2000)
     }
 }
