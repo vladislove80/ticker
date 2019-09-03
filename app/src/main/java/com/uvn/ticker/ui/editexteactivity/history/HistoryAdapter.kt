@@ -6,18 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uvn.ticker.R
+import com.uvn.ticker.data.TickerParam
 
 class HistoryHistoryAdapter(
     private val listener: HistoryClickListener,
-    var messages: MutableList<String>,
-    private val deletedOnSwipe: () -> Unit
+    var tp: MutableList<TickerParam>,
+    private val deletedOnSwipe: (TickerParam) -> Unit
 ) : RecyclerView.Adapter<MessageViewHolder>(), View.OnClickListener,
     HistoryTouchHelper {
 
     override fun onItemDismiss(position: Int) {
-        messages.removeAt(position)
+        val tpForDelete = tp[position]
+        tp.removeAt(position)
         notifyDataSetChanged()
-        deletedOnSwipe.invoke()
+        deletedOnSwipe.invoke(tpForDelete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -31,21 +33,21 @@ class HistoryHistoryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return messages.size
+        return tp.size
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.tvText.text = messages[position]
+        holder.tvText.text = tp[position].text
         holder.setOnClickListener(this, position)
     }
 
     override fun onClick(p0: View?) {
         val position = p0?.tag as Int
-        listener.onClick(messages[position])
+        listener.onClick(tp[position])
     }
 
     fun clearAll() {
-        messages.clear()
+        tp.clear()
         notifyDataSetChanged()
     }
 }

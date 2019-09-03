@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.uvn.ticker.R
-import com.uvn.ticker.data.TickerParams
-
-import com.uvn.ticker.ui.editexteactivity.TAG_TICKER_MESSAGE
+import com.uvn.ticker.data.Repository
+import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.ui.tickerview.TickerViewActivity
 import kotlinx.android.synthetic.main.activity_customize.*
 
@@ -32,8 +31,12 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent.extras?.getString(TAG_TICKER_MESSAGE)?.let { message ->
-            tvPreview.initParams(TickerParams(message))
+        intent.extras?.getParcelable<TickerParam>(TAG_TICKER_PARAMS)?.let { tp ->
+            with(tp) {
+                tvPreview.initParams(this)
+                sbSpeed.progress = getSeekerProgressFromParam(textSpeed, speedRanges)
+                sbTextSize.progress = getSeekerProgressFromParam(textRatio, ratioRanges)
+            }
         }
 
         setListeners()
@@ -53,8 +56,10 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
         })
 
         btnGotIt.setOnClickListener {
+            val tp = tvPreview.params
+            Repository.saveTickerParam(tp)
             startActivity(Intent(this, TickerViewActivity::class.java).apply {
-                putExtra(TAG_TICKER_PARAMS, tvPreview.params)
+                putExtra(TAG_TICKER_PARAMS, tp)
             })
         }
     }
@@ -78,5 +83,16 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
                 find.invoke(p1)
             }
         }
+    }
+
+    private fun getSeekerProgressFromParam(value: Float, list: List<Float>): Int {
+        var pos = 0
+        list.forEachIndexed { index, paramValue ->
+            if (value == paramValue) {
+                val intRange = seekerPositionRanges[index]
+                pos = (intRange.first + intRange.last) / 2
+            }
+        }
+        return pos
     }
 }

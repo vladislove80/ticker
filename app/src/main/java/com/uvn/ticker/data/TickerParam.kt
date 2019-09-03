@@ -6,12 +6,12 @@ import androidx.annotation.ColorInt
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class TickerParams(
+class TickerParam(
     val text: String,
     var textRatio: Float = 1f / 20,
-    val fontRes: String = "sans-serif-medium",
+    var fontRes: String = "sans-serif-medium",
     var textSpeed: Float = 1f,
-    @ColorInt val backgroundColor: Int = Color.WHITE,
-    @ColorInt val textColor: Int = Color.BLACK,
-    val fromRightToLeft: Boolean = true
+    @ColorInt var backgroundColor: Int = Color.WHITE,
+    @ColorInt var textColor: Int = Color.BLACK,
+    var fromRightToLeft: Boolean = true
 ) : Parcelable
