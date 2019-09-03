@@ -38,6 +38,8 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
                 tvPreview.initParams(this)
                 sbSpeed.progress = getSeekerProgressFromParam(textSpeed, speedRanges)
                 sbTextSize.progress = getSeekerProgressFromParam(textRatio, ratioRanges)
+                tvTextColorPicker.setBackgroundColor(textColor)
+                tvBackgroundColorPicker.setBackgroundColor(backgroundColor)
             }
         }
 

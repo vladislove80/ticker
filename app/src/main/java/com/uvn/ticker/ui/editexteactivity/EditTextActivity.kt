@@ -1,5 +1,6 @@
 package com.uvn.ticker.ui.editexteactivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,9 +28,9 @@ import com.uvn.ticker.ui.editexteactivity.history.HistoryClickListener
 import com.uvn.ticker.ui.editexteactivity.history.HistoryHistoryAdapter
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchCallback
 import com.uvn.ticker.ui.editexteactivity.history.HistoryTouchHelper
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.edittext_main.*
 
-class EditTextActivity : AppCompatActivity(R.layout.activity_main),
+class EditTextActivity : AppCompatActivity(R.layout.edittext_main),
     HistoryClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
