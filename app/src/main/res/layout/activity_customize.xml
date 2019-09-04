@@ -98,18 +98,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTextSize" />
 
-            <TextView
-                android:id="@+id/tvTextColorPicker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <com.divyanshu.colorseekbar.ColorSeekBar
+                android:id="@+id/sbTextColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@android:color/black"
-                android:elevation="8dp"
-                app:layout_constraintStart_toEndOf="@id/tvBackgroundColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
                 app:layout_constraintTop_toBottomOf="@+id/sbTextSize" />
 
             <TextView
@@ -127,19 +126,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTextColor" />
 
-            <TextView
-                android:id="@+id/tvBackgroundColorPicker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <com.divyanshu.colorseekbar.ColorSeekBar
+                android:id="@+id/sbBackgroundColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@android:color/white"
-                android:elevation="8dp"
-                app:layout_constraintStart_toEndOf="@id/tvBackgroundColor"
-                app:layout_constraintTop_toBottomOf="@+id/tvTextColorPicker" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
+                app:layout_constraintTop_toBottomOf="@+id/sbTextColor" />
 
             <TextView
                 android:id="@+id/tvGap"
@@ -167,7 +165,7 @@
                 android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
-                app:layout_constraintTop_toBottomOf="@+id/tvBackgroundColorPicker" />
+                app:layout_constraintTop_toBottomOf="@+id/sbBackgroundColor" />
 
             <Button
                 android:id="@+id/btnGotIt"

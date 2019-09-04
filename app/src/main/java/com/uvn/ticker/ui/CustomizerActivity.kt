@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.skydoves.colorpickerpreference.ColorPickerDialog
+import com.divyanshu.colorseekbar.ColorSeekBar
 import com.uvn.ticker.R
 import com.uvn.ticker.data.Repository
 import com.uvn.ticker.data.TickerParam
@@ -45,8 +45,6 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
                 tvPreview.initParams(this)
                 sbSpeed.progress = getSeekerProgressFromParam(textSpeed, speedRanges)
                 sbTextSize.progress = getSeekerProgressFromParam(textRatio, ratioRanges)
-                tvTextColorPicker.setBackgroundColor(textColor)
-                tvBackgroundColorPicker.setBackgroundColor(backgroundColor)
                 sbGapSize.progress = gap.length
             }
         }
@@ -76,38 +74,21 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
             })
         }
 
-        tvTextColorPicker.setOnClickListener {
-            getColorFromPicker {
-                tvTextColorPicker.setBackgroundColor(it)
-                tvPreview.params.textColor = it
+        sbTextColor.setOnColorChangeListener(object : ColorSeekBar.OnColorChangeListener {
+            override fun onColorChangeListener(color: Int) {
+                tvPreview.params.textColor = color
             }
-        }
-        tvBackgroundColorPicker.setOnClickListener {
-            getColorFromPicker {
-                tvBackgroundColorPicker.setBackgroundColor(it)
-                tvPreview.params.backgroundColor = it
+        })
+
+        sbBackgroundColor.setOnColorChangeListener(object : ColorSeekBar.OnColorChangeListener {
+            override fun onColorChangeListener(color: Int) {
+                tvPreview.params.backgroundColor = color
             }
-        }
+        })
 
         sbGapSize.setOnSeekBarChangeListener(onProgress { seekerPosition ->
             tvPreview.setGap(setGapBy(seekerPosition))
         })
-    }
-
-    private fun getColorFromPicker(setColor: (Int) -> Unit) {
-        val builder = ColorPickerDialog.Builder(
-            this, packageManager.getActivityInfo(componentName, 0).themeResource
-        )
-        builder.setTitle("Set text color")
-        builder.setPositiveButton(getString(R.string.confirm)) { colorEnvelope ->
-            setColor.invoke(colorEnvelope.color)
-        }
-
-        builder.setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-        builder.colorPickerView.colorEnvelope
-        builder.show()
     }
 
     private fun setTickerViewValue(seekerPosition: Int, set: (Int) -> Unit) {
