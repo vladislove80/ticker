@@ -14,9 +14,10 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         super.onCreate(savedInstanceState)
         tvLabelTicker.initParams(
             TickerParam(
-                "Ticker           ",
-                textSpeed = 15f,
-                textRatio = 4f / 20
+                "Ticker",
+                textSpeed = 20f,
+                textRatio = 4f / 20,
+                gap = "   "
             )
         )
 
