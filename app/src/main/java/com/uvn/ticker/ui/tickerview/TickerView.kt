@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.uvn.ticker.data.TickerParam
 import com.uvn.ticker.data.TickerText
@@ -22,11 +23,11 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var screenHeight = 0f
     private var textWidth = 0f
 
-    fun initParams(params: TickerParam) = params?.let {
-        this.params = params
+    fun initParams(params: TickerParam) = params.let {
+        this.params = it
         with(paint) {
-            color = params.textColor
-            textWidth = measureText(params.text)
+            color = it.textColor
+            textWidth = measureText(it.text + it.gap.length)
         }
     }
 
@@ -39,6 +40,12 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         messages.clear()
         calculateWithRatio(ratio)
         params.textRatio = ratio
+    }
+
+    fun setGap(newGap: String) {
+        messages.clear()
+        params.gap = newGap
+        textWidth = paint.measureText(params.text + params.gap)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -55,11 +62,16 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private fun calculateWithRatio(ratio: Float) {
         val textSizeWithHeightRatio = (screenHeight) * ratio
         paint.textSize = textSizeWithHeightRatio
-        textWidth = paint.measureText(params.text)
+        textWidth = paint.measureText(params.text + params.gap)
     }
 
     private fun drawText(canvas: Canvas, step: Int, paint: TextPaint, textHeight: Float) =
-        canvas.drawText(params.text, screenWidth - step, halfScreenHeight + textHeight / 4, paint)
+        canvas.drawText(
+            params.text + params.gap,
+            screenWidth - step,
+            halfScreenHeight + textHeight / 4,
+            paint
+        )
 
     private fun createTickerMessage() =
         TickerText(
@@ -79,6 +91,7 @@ class TickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         messages.forEach { text ->
             drawText(canvas, text.position.toInt(), paint, textHeight)
+            Log.d("TickerView", "onDraw text = ${params.text}, gapsize = ${params.gap.length}")
             text.move()
         }
 

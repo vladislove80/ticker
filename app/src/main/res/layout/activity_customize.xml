@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clCustomizer"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPreview">
 
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/label_speed1"
@@ -48,11 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvTextSize"
+                app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvTextSize"
+                app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
                 app:layout_constraintTop_toBottomOf="@+id/sbSpeed" />
 
             <TextView
@@ -141,6 +141,34 @@
                 app:layout_constraintStart_toEndOf="@id/tvBackgroundColor"
                 app:layout_constraintTop_toBottomOf="@+id/tvTextColorPicker" />
 
+            <TextView
+                android:id="@+id/tvGap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/gap_size"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBackgroundColor" />
+
+            <SeekBar
+                android:id="@+id/sbGapSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBackgroundColor"
+                app:layout_constraintTop_toBottomOf="@+id/tvBackgroundColorPicker" />
+
             <Button
                 android:id="@+id/btnGotIt"
                 android:layout_width="200dp"
@@ -152,7 +180,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBackgroundColorPicker" />
+                app:layout_constraintTop_toBottomOf="@+id/tvGap" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

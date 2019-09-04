@@ -13,4 +13,5 @@
     <string name="clear_history">Clear History</string>
     <string name="confirm">OK</string>
     <string name="cancel">CANCEL</string>
+    <string name="gap_size">Gap size</string>
 </resources>

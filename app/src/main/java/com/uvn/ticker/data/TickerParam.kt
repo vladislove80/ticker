@@ -13,5 +13,6 @@ class TickerParam(
     var textSpeed: Float = 1f,
     @ColorInt var backgroundColor: Int = Color.WHITE,
     @ColorInt var textColor: Int = Color.BLACK,
-    var fromRightToLeft: Boolean = true
+    var fromRightToLeft: Boolean = true,
+    var gap: String = ""
 ) : Parcelable

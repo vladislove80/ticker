@@ -30,6 +30,13 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
         11f / 20, 12f / 20, 13f / 20, 14f / 20, 15f / 20, 16f / 20, 17f / 20, 18f / 20, 19f / 20, 1f
     )
 
+    private fun setGapBy(i: Int): String {
+        tvPreview.width
+        return if (i == 0) " " else StringBuilder().apply {
+            for (counter in 0..i) this.append(" ")
+        }.toString()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,6 +47,7 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
                 sbTextSize.progress = getSeekerProgressFromParam(textRatio, ratioRanges)
                 tvTextColorPicker.setBackgroundColor(textColor)
                 tvBackgroundColorPicker.setBackgroundColor(backgroundColor)
+                sbGapSize.progress = gap.length
             }
         }
 
@@ -80,6 +88,10 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
                 tvPreview.params.backgroundColor = it
             }
         }
+
+        sbGapSize.setOnSeekBarChangeListener(onProgress { seekerPosition ->
+            tvPreview.setGap(setGapBy(seekerPosition))
+        })
     }
 
     private fun getColorFromPicker(setColor: (Int) -> Unit) {
@@ -104,7 +116,7 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
         }
     }
 
-    private fun onProgress(find: (Int) -> Unit): SeekBar.OnSeekBarChangeListener {
+    private fun onProgress(doOnProgress: (Int) -> Unit): SeekBar.OnSeekBarChangeListener {
         return object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(p0: SeekBar?) {
 
@@ -114,7 +126,7 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
             }
 
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                find.invoke(p1)
+                doOnProgress.invoke(p1)
             }
         }
     }

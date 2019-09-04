@@ -36,6 +36,7 @@ object Repository {
             it.backgroundColor = tp.backgroundColor
             it.textColor = tp.textColor
             it.fromRightToLeft = tp.fromRightToLeft
+            it.gap = tp.gap
         }
         executorService.execute {
             tickerParamsDao.insert(convertParamToEntity(tp))
@@ -63,7 +64,8 @@ object Repository {
         tpe.textSpeed,
         tpe.backgroundColor,
         tpe.textColor,
-        tpe.fromRightToLeft
+        tpe.fromRightToLeft,
+        tpe.gap
     )
 
     private fun convertParamToEntity(tp: TickerParam): TickerParamEntity = TickerParamEntity(
@@ -73,6 +75,7 @@ object Repository {
         tp.textSpeed,
         tp.backgroundColor,
         tp.textColor,
-        tp.fromRightToLeft
+        tp.fromRightToLeft,
+        tp.gap
     )
 }

@@ -12,5 +12,6 @@ class TickerParamEntity(
     @ColumnInfo(name = "textSpeed") var textSpeed: Float,
     @ColumnInfo(name = "backgroundColor") @ColorInt val backgroundColor: Int,
     @ColumnInfo(name = "textColor") @ColorInt val textColor: Int,
-    @ColumnInfo(name = "fromRightToLeft") val fromRightToLeft: Boolean
+    @ColumnInfo(name = "fromRightToLeft") val fromRightToLeft: Boolean,
+    @ColumnInfo(name = "gap") val gap: String
 )
