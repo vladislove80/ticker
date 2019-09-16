@@ -1,6 +1,6 @@
 package com.uvn.ticker.data
 
-class TickerText(
+class TickerTextStateController(
     private val textWidth: Float,
     private val screenWidth: Float,
     private val fromRightToLeft: Boolean = true,

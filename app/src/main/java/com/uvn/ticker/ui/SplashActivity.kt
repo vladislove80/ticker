@@ -12,18 +12,16 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tvLabelTicker.initParams(
+
+        tvLabelTicker.initSingleTickerParams(
             TickerParam(
                 "Ticker",
                 textSpeed = 20f,
-                textRatio = 4f / 20,
-                gap = "   "
+                textRatio = 4f / 20
             )
-        )
-
-        tvLabelTicker.postDelayed({
+        ) {
             startActivity(Intent(this@SplashActivity, EditTextActivity::class.java))
             finish()
-        }, 2000)
+        }
     }
 }

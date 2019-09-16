@@ -8,7 +8,7 @@
     android:fitsSystemWindows="false"
     tools:context=".ui.SplashActivity">
 
-    <com.uvn.ticker.ui.tickerview.TickerView
+    <com.uvn.ticker.ui.tickerview.SingleTickerView
         android:id="@+id/tvLabelTicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

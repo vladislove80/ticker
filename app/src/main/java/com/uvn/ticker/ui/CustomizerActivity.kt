@@ -31,7 +31,6 @@ class CustomizerActivity : AppCompatActivity(R.layout.activity_customize) {
     )
 
     private fun setGapBy(i: Int): String {
-        tvPreview.width
         return if (i == 0) " " else StringBuilder().apply {
             for (counter in 0..i) this.append(" ")
         }.toString()
