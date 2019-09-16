@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.uvn.ticker.R
 import com.uvn.ticker.data.TickerParam
@@ -37,7 +38,10 @@ class HistoryHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.tvText.text = tp[position].text
+        val tickerParam = tp[position]
+        holder.tvText.setTextColor(tickerParam.textColor)
+        holder.tvText.text = tickerParam.text
+        holder.textContainer.setCardBackgroundColor(tickerParam.backgroundColor)
         holder.setOnClickListener(this, position)
     }
 
@@ -55,6 +59,7 @@ class HistoryHistoryAdapter(
 class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     internal val tvText: TextView = view.findViewById(R.id.textView)
+    internal val textContainer: CardView = view.findViewById(R.id.textContainer)
 
     fun setOnClickListener(listener: View.OnClickListener, position: Int) {
         tvText.tag = position
