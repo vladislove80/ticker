@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.divyanshu.colorseekbar.ColorSeekBar
 import com.uvn.ticker.R
 import com.uvn.ticker.data.Repository
-import com.uvn.ticker.data.TickerParam
+import com.uvn.ticker.data.model.TickerParam
 import com.uvn.ticker.ui.tickerview.TickerViewActivity
 import kotlinx.android.synthetic.main.activity_customize.*
 

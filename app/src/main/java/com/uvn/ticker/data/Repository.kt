@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.uvn.ticker.TickerApp
 import com.uvn.ticker.data.database.TickerParamEntity
+import com.uvn.ticker.data.model.TickerParam
 import java.util.concurrent.ExecutorService
 
 object Repository {
@@ -57,16 +58,17 @@ object Repository {
         }
     }
 
-    private fun convertEntityToParam(tpe: TickerParamEntity) = TickerParam(
-        tpe.text,
-        tpe.textRatio,
-        tpe.fontRes,
-        tpe.textSpeed,
-        tpe.backgroundColor,
-        tpe.textColor,
-        tpe.fromRightToLeft,
-        tpe.gap
-    )
+    private fun convertEntityToParam(tpe: TickerParamEntity) =
+        TickerParam(
+            tpe.text,
+            tpe.textRatio,
+            tpe.fontRes,
+            tpe.textSpeed,
+            tpe.backgroundColor,
+            tpe.textColor,
+            tpe.fromRightToLeft,
+            tpe.gap
+        )
 
     private fun convertParamToEntity(tp: TickerParam): TickerParamEntity = TickerParamEntity(
         tp.text,

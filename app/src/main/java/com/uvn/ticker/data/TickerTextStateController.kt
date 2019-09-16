@@ -1,5 +1,7 @@
 package com.uvn.ticker.data
 
+import com.uvn.ticker.data.model.TickerTextState
+
 class TickerTextStateController(
     private val textWidth: Float,
     private val screenWidth: Float,

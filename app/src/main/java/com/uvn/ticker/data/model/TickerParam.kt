@@ -1,4 +1,4 @@
-package com.uvn.ticker.data
+package com.uvn.ticker.data.model
 
 import android.graphics.Color
 import android.os.Parcelable

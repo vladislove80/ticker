@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.uvn.ticker.R
-import com.uvn.ticker.data.TickerParam
+import com.uvn.ticker.data.model.TickerParam
 
 class HistoryHistoryAdapter(
     private val listener: HistoryClickListener,

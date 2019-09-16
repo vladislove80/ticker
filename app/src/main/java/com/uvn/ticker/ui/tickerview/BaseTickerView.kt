@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import com.uvn.ticker.data.TickerParam
+import com.uvn.ticker.data.model.TickerParam
 import com.uvn.ticker.data.TickerTextStateController
 
 open class BaseTickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :

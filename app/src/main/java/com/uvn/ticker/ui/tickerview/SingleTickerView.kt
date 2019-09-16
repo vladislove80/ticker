@@ -3,8 +3,8 @@ package com.uvn.ticker.ui.tickerview
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import com.uvn.ticker.data.TickerParam
-import com.uvn.ticker.data.TickerTextState
+import com.uvn.ticker.data.model.TickerParam
+import com.uvn.ticker.data.model.TickerTextState
 import com.uvn.ticker.data.TickerTextStateController
 
 class SingleTickerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
